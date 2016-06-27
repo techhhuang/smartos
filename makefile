@@ -9,7 +9,7 @@ boot.img: boot.o
 # 	dd if=boot of=boot.img bs=512 count=1  
   
 clean:  
-	rm ./boot ./boot.img 
+	-rm -rf ./boot ./boot.img ./boot.o
 
 run:
 	qemu-system-x86_64 boot.img
