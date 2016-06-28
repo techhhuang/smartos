@@ -1,0 +1,31 @@
+.section .text
+.global start
+multiboot_header:
+   .long 0x1BADB002
+   .long 0x00000003
+   .long -(0x1BADB002 + 0x00000003)
+start:
+   lgdt GDT_pointer
+   mov $0x10, %ax
+   mov %ax, %ds
+   mov %ax, %ss
+   ljmp $0x08, $next
+next:
+   mov %cr0, %eax
+   and $0xFE, %al
+   mov %eax, %cr0
+   mov $stack, %esp
+   ljmp $0, kernel_main
+
+.section .data
+GDT:
+   .quad 0x0000000000000000
+   .quad 0x008f9a000000ffff
+   .quad 0x00cf92000000ffff
+GDT_pointer:
+   .word 24
+   .long GDT
+
+.section .bss
+   .skip 16384
+stack:
