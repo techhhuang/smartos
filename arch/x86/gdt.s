@@ -9,9 +9,9 @@ gdt_null:
 gdt_code:
 	# the code segment descriptor
 	# base =0 x0 , limit =0 xfffff ,
-	# 1 st flags : ( present )1 ( privilege )00 ( descriptor type )1 -> 1001 b
+	# 1 st flags : ( present )1 ( privilege )00 ( descriptor type: 0 for system ,1 for data or code )1 -> 1001 b
 	# type flags : ( code )1 ( conforming )0 ( readable )1 ( accessed )0 -> 1010 b
-	# 2 nd flags : ( granularity )1 (32 - bit default )1 (64 - bit seg )0 ( AVL )0 -> 1100 b
+	# 2 nd flags : ( granularity )1 (32 bit seg default )1 (64 bit seg )0 ( AVL )0 -> 1100 b
 	.word 	0xffff 		#limit (bits 0-15)
 	.word 	0x0  		#base  (bits 0-15)
 	.byte 	0x0    		#base  (bits 16-23)
@@ -20,10 +20,15 @@ gdt_code:
 	.byte 	0x0  		#base  (bits 24-31)
 
 gdt_data:
+	# the code segment descriptor
+	# base =0 x0 , limit =0 xfffff ,
+	# 1 st flags : ( present )1 ( privilege )00 ( descriptor type: 0 for system ,1 for data or code )1 -> 1001 b
+	# type flags : ( data )1 ( expand down )0 ( writable )1 ( accessed )0 -> 1010 b
+	# 2 nd flags : ( granularity )1 (32 bit seg default )1 (64 bit seg )0 ( AVL )0 -> 1100 b
 	.word 	0xffff
 	.word 	0x0
 	.byte 	0x0
-	.byte 	0b10011010
+	.byte 	0b10010010
 	.byte 	0b11001111
 	.byte 	0x0
 

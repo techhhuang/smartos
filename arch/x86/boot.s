@@ -2,12 +2,12 @@
 .global _start 
 .code16  
 
-.equ KERNEL_OFFSET,  0x1000
+.equ KERNEL_OFFSET,  0x8000
 
 _start:  
     
     movb    %dl,    BOOT_DRIVE
-    movw    $0x8000,    %bp 
+    movw    $0x9000,    %bp 
     movw    %bp,    %sp
 
     # mov     %cs,    %ax
@@ -28,7 +28,7 @@ load_kernel:
     movw    $MSG_LOAD_KERNEL,   %si
     call    bios_print
     movw    $KERNEL_OFFSET,     %bx
-    movb    $1,    %dh
+    movb    $4,    %dh
     movb    BOOT_DRIVE, %dl
     call    load_disk
     ret
@@ -48,9 +48,9 @@ init_pm:
     movw    %ax,    %es
     movw    %ax,    %gs 
     movw    %ax,    %fs 
-    # movw    %ax,    %ss
+    movw    %ax,    %ss
    
-    movl    $0x80000,   %ebp
+    movl    $0x90000,   %ebp
     movl    %ebp,   %esp
     call    begin_pm
 

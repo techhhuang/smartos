@@ -1,20 +1,27 @@
+ARCH?=x86
 BUILDDIR=../build/kernel
+ARCHDIR=../build/arch/${ARCH}
+INCDIR= -I ../include -I .
+LINKER=./linker.ld
+
+include ../arch/${ARCH}/config.make
 
 SOURCES=$(wildcard ./*.c)
-HEADERS=$(wildcard ./*.h)
 OBJS=${SOURCES:%.c=${BUILDDIR}/%.o}
+
+OBJS+=$(wildcard ${ARCHDIR}/io.o)
 
 
 all:${BUILDDIR}/kernel.bin
 
 ${BUILDDIR}/kernel.bin:	${BUILDDIR}/kernel_entry.o	${OBJS}
-	ld --oformat binary -Ttext 0x1000 -o $@ $^
+	${LD} ${LDFLAG}  -o $@ $^ 
 
 ${BUILDDIR}/%.o:%.s
-	as -o $@ $<
+	${ASM} ${ASMFLAG} -o $@ $< 
 
 ${BUILDDIR}/%.o:%.c ${HEADERS}
-	gcc -ffreestanding -o $@ -c $<
+	${CC} ${FLAG} -o $@ -c $< 
 
 clean:
 	rm -rf ${BUILDDIR}/*.o;
