@@ -23,5 +23,17 @@ ebx esi edi 被调用者保护寄存器
 
 设置ss的时候，所指定的segment discripter 必须为数据段，否则会出现错误
 
+qemu 启动参数-s -S 进入调试模式
+用gdb 打开kernel文件，运行target remote localhost：1234
+gdb> file kernel
+gdb> target remote localhost
+gdb> b main
+gdb> c
+
+gdb 中 n 表示运行下一条指令，s 表示单步运行，finish/return 从单步中返回
+
+
+
+
 
 

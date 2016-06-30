@@ -2,7 +2,7 @@
 .section .text 
 .code16  
 
-.equ KERNEL_OFFSET,  0x8000
+.equ KERNEL_OFFSET,  0x1000
 
 _start:  
     
@@ -24,7 +24,7 @@ load_kernel:
     movw    $MSG_LOAD_KERNEL,   %si
     call    bios_print
     movw    $KERNEL_OFFSET,     %bx
-    movb    $4,    %dh
+    movb    $10,    %dh
     movb    BOOT_DRIVE, %dl
     call    load_disk
     ret
