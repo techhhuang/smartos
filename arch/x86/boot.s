@@ -1,5 +1,5 @@
-.section .text  
 .global _start 
+.section .text 
 .code16  
 
 .equ KERNEL_OFFSET,  0x8000
@@ -9,10 +9,6 @@ _start:
     movb    %dl,    BOOT_DRIVE
     movw    $0x9000,    %bp 
     movw    %bp,    %sp
-
-    # mov     %cs,    %ax
-    # mov     %ax,    %ds
-    # mov     %ax,    %es
 
     movw    $MSG_REAL_MDOE,    %si  
     call    bios_print
@@ -63,6 +59,7 @@ begin_pm:
 
 
 .include    "print_string_pm.s"
+
 
 BOOT_DRIVE:
     .byte   0
