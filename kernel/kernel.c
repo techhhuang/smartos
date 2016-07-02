@@ -1,15 +1,13 @@
-#include <stdio.h>
-#include <sys/pic.h>
-#include <sys/idt.h>
+#include <smart/printk.h>
+#include <smart/console.h>
+#include <smart/irq.h>
+#include <smart/keyboard.h>
 
 void main () {
 	clear_screen();
-	printf("hello world!\n");
-	printf("h\n");
-	printf("h\n");
-	init_pic();
-	init_idt();
-	int a=1/0;	
-	while(1);
-	printf("never printed\n");	
+	printk("hello world!\n");
+	init_irq();
+	init_keyboard();
+	// int a=1/0;	
+	printk("never printed\n");
 }

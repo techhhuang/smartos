@@ -1,6 +1,6 @@
 #ifndef _IDT_H
 #define _IDT_H
-#include <sys/defs.h>
+#include <defs.h>
 
 struct idtr {
 	u16 limit;
@@ -19,5 +19,5 @@ struct idt_entry {
 
 typedef struct idt_entry idt_entry_t;
 void init_idt();
-void init_idt_entry(u8 index,u32 offset, u16 segment, u16 flags);
+void set_irq_gate(u8 index,u32 offset);
 #endif

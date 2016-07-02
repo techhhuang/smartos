@@ -24,7 +24,7 @@ load_kernel:
     movw    $MSG_LOAD_KERNEL,   %si
     call    bios_print
     movw    $KERNEL_OFFSET,     %bx
-    movb    $10,    %dh
+    movb    $20,    %dh
     movb    BOOT_DRIVE, %dl
     call    load_disk
     ret
@@ -45,13 +45,12 @@ init_pm:
     movw    %ax,    %gs 
     movw    %ax,    %fs 
     movw    %ax,    %ss
-   
+    sti
     movl    $0x90000,   %ebp
     movl    %ebp,   %esp
     call    begin_pm
 
 begin_pm:
-
     movl    $MSG_PM_MODE,   %ebx
     call    print_string_pm
     call    KERNEL_OFFSET

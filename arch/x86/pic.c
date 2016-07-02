@@ -1,5 +1,5 @@
-#include <sys/pic.h>
-#include <sys/io.h>
+#include <pic.h>
+#include <smart/io.h>
 void init_pic(void)
 {
 	/* Initialization of ICW1 */
@@ -8,7 +8,7 @@ void init_pic(void)
 
 	/* Initialization of ICW2 */
 	outb(0x21, 0x20);	/* start vector = 32 */
-	outb(0xA1, 0x70);	/* start vector = 96 */
+	outb(0xA1, 0x28);	/* start vector = 40 */
 
 	/* Initialization of ICW3 */
 	outb(0x21, 0x04);
@@ -19,6 +19,6 @@ void init_pic(void)
 	outb(0xA1, 0x01);
 
 	/* mask interrupts */
-	outb(0x21, 0x0);
-	outb(0xA1, 0x0);
+	outb(0x21, 0x01);
+	outb(0xA1, 0x01);
 }

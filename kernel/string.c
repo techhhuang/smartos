@@ -1,4 +1,4 @@
-#include <sys/string.h>
+#include <string.h>
 
 int strncmp (const char *dest, const char *src, size_t size){
     int i = 0;

@@ -6,10 +6,10 @@ LINKER=./linker.ld
 
 include ../arch/${ARCH}/config.make
 
-SOURCES=$(wildcard ./*.c)
+SOURCES=$(wildcard ./*.c ./dev/*.c)
 OBJS=${SOURCES:%.c=${BUILDDIR}/%.o}
 
-OBJS+=$(wildcard ${ARCHDIR}/io.o)
+OBJS+=$(wildcard ${ARCHDIR}/*.o)
 
 
 all:${BUILDDIR}/kernel.bin
