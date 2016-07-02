@@ -7,6 +7,14 @@ void init_irq(){
 	init_idt();
 }
 
-void set_irq(u8 index, u32 entry){
-	set_irq_gate(index,entry);
+void irq_set(u8 irq, u32 entry){
+	set_irq_gate(T_IRQ0 + irq,entry);
+}
+
+void irq_enable(u8 irq){
+	pic_enable(irq);
+}
+
+void irq_eoi(u8 irq){
+	pic_send_eoi(irq);
 }

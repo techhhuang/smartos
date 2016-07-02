@@ -16,12 +16,16 @@ void do_keyboad(){
 		printk("%c",key_map[code]);
 	}
 
-	outb(0x20, 0x20);
+	irq_eoi(IRQ_KEYBOARD);
+
 	__asm__("sti");
 }
 
 void init_keyboard(){
-	set_irq(33,(ptr_t)do_keyboad);
+
+	irq_set(IRQ_KEYBOARD,(u32)do_keyboad);
+
+	irq_enable(IRQ_KEYBOARD);
 }
 
 static int is_normal_key_pressed(u8 data) {
